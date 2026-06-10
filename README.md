@@ -1,30 +1,36 @@
 # Project Management CLI Tool
 
-A simple Python-based command-line tool for managing users, projects, and tasks.
+A Python CLI application for managing users, projects, and tasks with persistent JSON storage.
 
 ## Features
 
-- Create and list users
-- Add projects to a specific user
-- Assign tasks to projects
+- Create, list, and manage users
+- Add projects and associate them with users
+- Create tasks for projects with contributor assignments
 - Mark tasks complete
-- Persist data to `data.json`
+- Persist all data in JSON with safe load/save behavior
+- Support custom data file path (`--data-file`)
 
 ## Installation
 
-This tool uses `click` for command-line handling and `pytest` for tests.
+A Python 3 environment is required.
 
-Install dependencies with `pip`:
+### Using a virtual environment
 
 ```bash
-python3 -m pip install click pytest
+cd python-project-management-cli-tool
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install click pytest
 ```
 
-Or use `pipenv` if you prefer:
+### Using pipenv
 
 ```bash
+cd python-project-management-cli-tool
 pipenv install --dev
-pipenv run pytest
+pipenv shell
 ```
 
 ## Usage
@@ -42,7 +48,7 @@ python3 pm.py task complete --task-id 1
 python3 pm.py task assign --task-id 1 --user-id 2
 ```
 
-To run with a custom file path:
+Use a custom file for persistence:
 
 ```bash
 python3 pm.py --data-file ./custom-data.json user list
@@ -50,11 +56,19 @@ python3 pm.py --data-file ./custom-data.json user list
 
 ## Tests
 
+Run the unit tests with:
+
 ```bash
 pytest
 ```
 
+If using the virtual environment:
+
+```bash
+.venv/bin/python -m pytest -q
+```
+
 ## Data storage
 
-The tool stores data in `data.json` by default, or in the file specified by `--data-file`.
-# python-project-management-cli-tool
+By default, data is stored in `data.json` in the project root. You can override this with `--data-file`.
+
